@@ -19,12 +19,15 @@ function App() {
         <Layout>
           <NavBar />
           <Routes>
+
             <Route path="/login" element={<LoginPage />} />
             <Route path="/logout" element={<LogoutPage />} />
+            
             <Route element={<PrivateRoutes />}>
               <Route path="/" element={<HomePage />} />
               <Route path="/Todo" element={<TodoPage />} />
             </Route>
+
           </Routes>
         </Layout>
       </AuthProvider>

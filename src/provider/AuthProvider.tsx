@@ -23,8 +23,6 @@ const AuthProvider = ({ children }: IAuthProvider) => {
   const [token, setToken] = useState<TokenDto | null>(null);
 
   const isAuth = () => {
-    console.log('isAuth');
-    console.log(token);
     return !!token;
   };
 
