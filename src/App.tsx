@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import TodoPage from './pages/TodoPage';
-import Layout from './components/layouts/ProtectedLayout';
 import LogoutPage from './pages/LogoutPage';
 import NotFoundPage from './pages/NotFoundPage';
 import LoginPage from './pages/LoginPage';
