@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import { Button, Form } from 'react-bootstrap';
 
 export interface LoginFormProps {
   onSubmit: (data: LoginProps) => void;
@@ -14,16 +13,39 @@ export interface LoginProps {
 const LoginForm = (props: LoginFormProps) => {
   const [email, setEmail] = useState('email@gmail.com');
   const [password, setPassword] = useState('password');
+  const [passwordError, setpasswordError] = useState('');
+  const [emailError, setemailError] = useState('');
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleValidation = (event: React.FormEvent) => {
+    let formIsValid = true;
 
-    props.onSubmit({ email, password });
+    if (!email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
+      formIsValid = false;
+      setemailError('Email Not Valid');
+    } else {
+      setemailError('');
+    }
+
+    if (!password.match(/^[a-zA-Z]{8,22}$/)) {
+      formIsValid = false;
+      setpasswordError('Only Letters and length must best min 8 Chracters and Max 22 Chracters');
+    } else {
+      setpasswordError('');
+    }
+
+    return formIsValid;
+  };
+
+  const loginSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (handleValidation(e)) {
+      props.onSubmit({ email, password });
+    }
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
+    <Form onSubmit={loginSubmit}>
+      <Form.Group className="mb-3">
         <Form.Label>Email address</Form.Label>
         <Form.Control
           name="email"
@@ -32,10 +54,13 @@ const LoginForm = (props: LoginFormProps) => {
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
+        <small id="emailHelp" className="text-danger form-text">
+          {emailError}
+        </small>
         <Form.Text className="text-muted">Well never share your email with anyone else.</Form.Text>
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
+      <Form.Group className="mb-3">
         <Form.Label>Password</Form.Label>
         <Form.Control
           name="password"
@@ -44,8 +69,11 @@ const LoginForm = (props: LoginFormProps) => {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
+        <small id="passworderror" className="text-danger form-text">
+          {passwordError}
+        </small>
       </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+      <Form.Group className="mb-3">
         <Form.Check type="checkbox" label="Check me out" />
       </Form.Group>
       <Button variant="primary" type="submit">
@@ -54,5 +82,4 @@ const LoginForm = (props: LoginFormProps) => {
     </Form>
   );
 };
-
 export default LoginForm;
