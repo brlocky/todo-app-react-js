@@ -1,23 +1,23 @@
 import React, { useContext, useState } from 'react';
 import LoginForm, { LoginProps } from '../components/forms/LoginForm';
 import { useMutation } from 'react-query';
-import { login } from '../services/apiService';
+import { login as loginQuery } from '../services/apiService';
 import { AxiosResponse } from 'axios';
 import { AuthContext, AuthContextType } from '../provider/AuthProvider';
+import { Navigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
-  const { setToken } = useContext(AuthContext) as AuthContextType;
+  const { isAuth, login } = useContext(AuthContext) as AuthContextType;
 
   const handleLogin = (data: LoginProps) => {
     setErrorMessage('');
     mutation.mutate({ ...data });
   };
 
-  const mutation = useMutation(login, {
+  const mutation = useMutation(loginQuery, {
     onSuccess: (response: AxiosResponse) => {
-      setToken(response.data);
-      // <Navigate to="/todo" />;
+      login(response.data);
     },
     onError: ({ response }) => {
       setErrorMessage(response.data.error);
@@ -25,6 +25,10 @@ const LoginPage = () => {
   });
 
   const { isLoading } = mutation;
+
+  if (isAuth()) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div>

@@ -6,7 +6,7 @@ const LogoutPage = () => {
   const { logout } = useContext(AuthContext) as AuthContextType;
   logout();
 
-  return <Navigate to="/login" />;
+  return <Navigate to="/" />;
 };
 
 export default LogoutPage;
