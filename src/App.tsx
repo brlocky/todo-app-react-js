@@ -2,36 +2,33 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import TodoPage from './pages/TodoPage';
-import NavBar from './components/layouts/NavBar';
-import Layout from './components/layouts/Layout';
-import LoginPage from './pages/LoginPage';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import PrivateRoutes from './components/private-route/PrivateRoutes';
+import Layout from './components/layouts/ProtectedLayout';
 import LogoutPage from './pages/LogoutPage';
-import AuthProvider from './provider/AuthProvider';
-
+import NotFoundPage from './pages/NotFoundPage';
+import LoginPage from './pages/LoginPage';
+import { AuthProvider } from './provider/AuthProvider';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import ProtectedLayout from './components/layouts/ProtectedLayout';
+import AuthLayout from './components/layouts/AuthLayout';
 const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <Layout>
-          <NavBar />
-          <Routes>
-
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <Routes>
+          <Route element={<AuthLayout />}>
             <Route path="/login" element={<LoginPage />} />
+          </Route>
+          <Route element={<ProtectedLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/Todo" element={<TodoPage />} />
             <Route path="/logout" element={<LogoutPage />} />
-            
-            <Route element={<PrivateRoutes />}>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/Todo" element={<TodoPage />} />
-            </Route>
-
-          </Routes>
-        </Layout>
-      </AuthProvider>
-    </QueryClientProvider>
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </QueryClientProvider>
+    </AuthProvider>
   );
 }
 
