@@ -1,4 +1,4 @@
-import React, { ReactNode, createContext, useState } from 'react';
+import React, { ReactNode, createContext, useContext, useState } from 'react';
 
 export interface TokenDto {
   accessToken: string | null;
@@ -6,33 +6,47 @@ export interface TokenDto {
 }
 
 export type AuthContextType = {
-  token: TokenDto | null;
-  setToken: (token: TokenDto) => void;
+  login: (token: TokenDto) => void;
   logout: () => void;
   isAuth: () => boolean;
 };
 
-export const AuthContext = createContext<AuthContextType|null>(null);
+export const AuthContext = createContext<AuthContextType | null>(null);
 const { Provider } = AuthContext;
 
 interface IAuthProvider {
   children: ReactNode;
 }
 
-const AuthProvider = ({ children }: IAuthProvider) => {
+export const AuthProvider = ({ children }: IAuthProvider) => {
   const [token, setToken] = useState<TokenDto | null>(null);
 
   const isAuth = () => {
     return !!token;
   };
 
-  const logout = () => {
-    setToken(null);
+  const login = (token: TokenDto) => {
+    setToken(token);
   };
 
-  return <Provider value={{ token, setToken, logout, isAuth }}>{children}</Provider>;
+  const logout = () => {
+    setTimeout(() => {
+      setToken(null);
+    }, 100);
+  };
+
+  return (
+    <Provider
+      value={{
+        login,
+        logout,
+        isAuth
+      }}>
+      {children}
+    </Provider>
+  );
 };
 
-AuthProvider.context = AuthContext;
-
-export default AuthProvider;
+export const useAuth = () => {
+  return useContext(AuthContext) as AuthContextType;
+};
