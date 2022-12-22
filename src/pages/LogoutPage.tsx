@@ -1,12 +1,15 @@
-import React, { useContext } from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
 import { AuthContext, AuthContextType } from '../provider/AuthProvider';
 
 const LogoutPage = () => {
   const { logout } = useContext(AuthContext) as AuthContextType;
-  logout();
 
-  return <Navigate to="/" />;
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(() => {
+    logout();
+  });
+  
+  return <div />;
 };
 
 export default LogoutPage;

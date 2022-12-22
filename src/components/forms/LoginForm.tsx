@@ -19,6 +19,7 @@ const LoginForm = (props: LoginFormProps) => {
   const handleValidation = (event: React.FormEvent) => {
     let formIsValid = true;
 
+    setemailError('');
     if (!email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
       formIsValid = false;
       setemailError('Email Not Valid');

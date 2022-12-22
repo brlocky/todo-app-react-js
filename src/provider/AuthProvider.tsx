@@ -1,5 +1,4 @@
 import React, { ReactNode, createContext, useContext, useState } from 'react';
-
 export interface TokenDto {
   accessToken: string | null;
   refreshToken: string | null;
@@ -30,9 +29,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
   };
 
   const logout = () => {
-    setTimeout(() => {
-      setToken(null);
-    }, 100);
+    setToken(null);
   };
 
   return (

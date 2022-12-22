@@ -4,11 +4,10 @@ import { useMutation } from 'react-query';
 import { login as loginQuery } from '../services/apiService';
 import { AxiosResponse } from 'axios';
 import { AuthContext, AuthContextType } from '../provider/AuthProvider';
-import { Navigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
-  const { isAuth, login } = useContext(AuthContext) as AuthContextType;
+  const { login } = useContext(AuthContext) as AuthContextType;
 
   const handleLogin = (data: LoginProps) => {
     setErrorMessage('');
@@ -25,10 +24,6 @@ const LoginPage = () => {
   });
 
   const { isLoading } = mutation;
-
-  if (isAuth()) {
-    return <Navigate to="/" />;
-  }
 
   return (
     <div>
