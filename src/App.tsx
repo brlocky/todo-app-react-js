@@ -6,10 +6,30 @@ import LogoutPage from './pages/LogoutPage';
 import NotFoundPage from './pages/NotFoundPage';
 import LoginPage from './pages/LoginPage';
 import { AuthProvider } from './provider/AuthProvider';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider, QueryFunctionContext, QueryKey } from 'react-query';
 import ProtectedLayout from './components/layouts/ProtectedLayout';
 import AuthLayout from './components/layouts/AuthLayout';
-const queryClient = new QueryClient();
+import axios from 'axios';
+
+
+// Define a default query function that will receive the query key
+// the queryKey is guaranteed to be an Array here
+const defaultQueryFn = async ({ queryKey }: QueryFunctionContext<QueryKey, unknown>) => {
+  const url = (process.env.REACT_APP_API_URL || '') + queryKey[0];
+  const { data } = await axios.get(url);
+  return data;
+};
+
+// provide the default query function to your app with defaultOptions
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      queryFn: defaultQueryFn
+    }
+  }
+});
+
+// const queryClient = new QueryClient();
 
 function App() {
   return (

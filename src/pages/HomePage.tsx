@@ -7,7 +7,7 @@ const HomePage = () => {
       <Card>
         <Card.Body>
           <Card.Text className="text-center">
-            <b>homePage</b>
+            <b>Home Page</b>
           </Card.Text>
         </Card.Body>
       </Card>
