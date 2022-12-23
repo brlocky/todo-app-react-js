@@ -1,14 +1,14 @@
 import React from 'react';
 
-const List: React.FC<{ data: Array<any>; renderItem: (item: any) => JSX.Element; }> = ({
-  renderItem,
-  data
-}) => {
+export interface ListProps<T> {
+  items: T[];
+  renderItem: (item: T) => JSX.Element;
+}
+
+export function List<T>(props: ListProps<T>) {
   return (
     <div>
-      <ul>{data?.map((item) => renderItem(item))}</ul>
+      <ul>{props.items?.map((item) => props.renderItem(item))}</ul>
     </div>
   );
-};
-
-export default List;
+}

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import { Todo } from '../types/Todo';
-import List from '../components/common/List';
 import TodoListItem from '../components/common/list-items/TodoListItem';
+import { List } from '../components/common/List';
 
 const TodoPage = () => {
   const { data, error, isFetching } = useQuery<Array<Todo>, Error>(`/todo`, {});
@@ -15,15 +15,15 @@ const TodoPage = () => {
     return <span>Error: {error.message}</span>;
   }
 
-  const renderItem = (data: Todo) => {
-    return <TodoListItem data={data} />;
+  const renderItem = (item: Todo) => {
+    return <TodoListItem item={item} />;
   };
 
   // We can assume by this point that `isSuccess === true`
   return (
     <>
       <p>Todo List</p>
-      <List data={data || []} renderItem={renderItem}></List>
+      <List<Todo> items={data || []} renderItem={renderItem}></List>
     </>
   );
 };
