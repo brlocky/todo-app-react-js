@@ -9,31 +9,30 @@ import { AuthProvider } from './provider/AuthProvider';
 import { QueryClient, QueryClientProvider, QueryFunctionContext, QueryKey } from 'react-query';
 import ProtectedLayout from './components/layouts/ProtectedLayout';
 import AuthLayout from './components/layouts/AuthLayout';
-import axios from 'axios';
-
+import { TokenServiceInstance } from './services/TokenService';
+import { axiosInstance } from './services/axios';
 
 // Define a default query function that will receive the query key
 // the queryKey is guaranteed to be an Array here
 const defaultQueryFn = async ({ queryKey }: QueryFunctionContext<QueryKey, unknown>) => {
   const url = (process.env.REACT_APP_API_URL || '') + queryKey[0];
-  const { data } = await axios.get(url);
-  return data;
+  const response = await axiosInstance.get(url);
+  return response?.data;
 };
 
 // provide the default query function to your app with defaultOptions
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      queryFn: defaultQueryFn
+      queryFn: defaultQueryFn,
+      refetchOnWindowFocus: false
     }
   }
 });
 
-// const queryClient = new QueryClient();
-
 function App() {
   return (
-    <AuthProvider>
+    <AuthProvider tokenService={TokenServiceInstance}>
       <QueryClientProvider client={queryClient}>
         <Routes>
           <Route element={<AuthLayout />}>

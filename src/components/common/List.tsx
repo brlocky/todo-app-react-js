@@ -8,7 +8,7 @@ export interface ListProps<T> {
 export function List<T>(props: ListProps<T>) {
   return (
     <div>
-      <ul>{props.items?.map((item) => props.renderItem(item))}</ul>
+      <ul>{props.items?.map(props.renderItem)}</ul>
     </div>
   );
 }

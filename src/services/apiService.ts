@@ -1,7 +1,6 @@
-import axios from 'axios';
-// TODO add .env
-const baseUrl = 'http://localhost:3001';
+import { axiosInstance } from "./axios";
 
+// TODO add .env
 export interface RegisterDto {
   email: string;
   username: string;
@@ -15,9 +14,17 @@ export interface LoginDto {
 }
 
 export function register(data: RegisterDto) {
-  return axios.post(`${baseUrl}/auth/register/`, data);
+  return axiosInstance.post(`auth/register/`, data);
 }
 
 export function login(data: LoginDto) {
-  return axios.post(`${baseUrl}/auth/login/`, data);
+  return axiosInstance.post(`auth/login/`, data);
+}
+
+export interface CreateTodoDto {
+  message: string;
+}
+
+export function createTodo(data: CreateTodoDto) {
+  return axiosInstance.post(`todo`, data);
 }

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import LoginForm, { LoginProps } from '../components/forms/LoginForm';
 import { useMutation } from 'react-query';
-import { login as loginQuery } from '../services/apiService';
+import { login as loginQuery } from '../services/ApiService';
 import { AxiosResponse } from 'axios';
 import { AuthContext, AuthContextType } from '../provider/AuthProvider';
 
