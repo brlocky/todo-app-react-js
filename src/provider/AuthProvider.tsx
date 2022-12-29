@@ -1,8 +1,5 @@
-import React, { ReactNode, createContext, useContext, useState } from 'react';
-export interface TokenDto {
-  accessToken: string | null;
-  refreshToken: string | null;
-}
+import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { TokenDto, TokenService } from '../services/TokenService';
 
 export type AuthContextType = {
   login: (token: TokenDto) => void;
@@ -15,21 +12,28 @@ const { Provider } = AuthContext;
 
 interface IAuthProvider {
   children: ReactNode;
+  tokenService: TokenService;
 }
 
-export const AuthProvider = ({ children }: IAuthProvider) => {
-  const [token, setToken] = useState<TokenDto | null>(null);
+export const AuthProvider = ({ children, tokenService }: IAuthProvider) => {
+  const [auth, setAuth] = useState(false);
+
+  useEffect(() => {
+    setAuth(!!tokenService.getToken());
+  }, []);
 
   const isAuth = () => {
-    return !!token;
+    return auth;
   };
 
   const login = (token: TokenDto) => {
-    setToken(token);
+    tokenService.setToken(token);
+    setAuth(true);
   };
 
   const logout = () => {
-    setToken(null);
+    tokenService.deleteToken();
+    setAuth(false);
   };
 
   return (
@@ -37,7 +41,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
       value={{
         login,
         logout,
-        isAuth
+        isAuth,
       }}>
       {children}
     </Provider>
