@@ -1,15 +1,11 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
+import Card from '../components/common/Card';
 
 const HomePage = () => {
   return (
     <>
-      <Card>
-        <Card.Body>
-          <Card.Text className="text-center">
-            <b>Home Page</b>
-          </Card.Text>
-        </Card.Body>
+      <Card title="Home Page">
+        <b>Welcome</b>
       </Card>
     </>
   );

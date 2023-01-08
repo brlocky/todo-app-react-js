@@ -6,9 +6,5 @@ export interface ListProps<T> {
 }
 
 export function List<T>(props: ListProps<T>) {
-  return (
-    <div>
-      <ul>{props.items?.map(props.renderItem)}</ul>
-    </div>
-  );
+  return <ul className="divide-y divide-gray-200">{props.items?.map(props.renderItem)}</ul>;
 }

@@ -7,8 +7,11 @@ const TodoListItem: React.FC<{ item: Todo | null }> = ({ item }) => {
   }
 
   return (
-    <li key={item.id}>
-      {item.message} - {item.completed}
+    <li key={item.id} className="py-4 flex">
+      <div className="ml-3">
+        <p className="text-sm font-medium text-gray-900">{item.message}</p>
+        <p className="text-sm text-gray-500">{item.completed}</p>
+      </div>
     </li>
   );
 };
