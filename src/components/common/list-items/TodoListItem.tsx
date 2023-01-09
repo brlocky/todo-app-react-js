@@ -1,9 +1,9 @@
 import React from 'react';
-import { Todo } from '../../../types/todo';
+import { TodoDto } from '../../../types/todo';
 
-const TodoListItem: React.FC<{ item: Todo | null }> = ({ item }) => {
+const TodoListItem: React.FC<{ item: TodoDto | null }> = ({ item }) => {
   if (!item) {
-    return <li key="no-key"></li>;
+    return <li key={'no_key_' + Math.ceil(Math.random() * 10000)}> - </li>;
   }
 
   return (
