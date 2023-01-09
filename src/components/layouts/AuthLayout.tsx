@@ -25,8 +25,8 @@ const AuthLayout = () => {
 
 
   return (
-    <div className="App">
-      <div className="containe">
+    <div>
+      <div className="container">
         <div className="row d-flex justify-content-center">
           <div className="col col-auto col-md-8 col-lg-4 p-5">{outlet}</div>
         </div>

@@ -4,11 +4,10 @@ import { useAppDispatch } from '../redux/store/hook';
 
 const LogoutPage = () => {
   const dispatch = useAppDispatch();
-  // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
     dispatch(deleteCredentials());
   });
-  
+
   return <div />;
 };
 
