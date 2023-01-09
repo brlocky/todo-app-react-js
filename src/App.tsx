@@ -11,6 +11,7 @@ import ProtectedLayout from './components/layouts/ProtectedLayout';
 import AuthLayout from './components/layouts/AuthLayout';
 import { TokenServiceInstance } from './services/TokenService';
 import { axiosInstance } from './services/axios';
+import RegisterPage from './pages/RegisterPage';
 
 // Define a default query function that will receive the query key
 // the queryKey is guaranteed to be an Array here
@@ -37,6 +38,7 @@ function App() {
         <Routes>
           <Route element={<AuthLayout />}>
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
           </Route>
           <Route element={<ProtectedLayout />}>
             <Route path="/" element={<HomePage />} />

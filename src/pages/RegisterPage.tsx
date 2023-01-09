@@ -1,21 +1,21 @@
 import React, { useContext, useState } from 'react';
-import LoginForm, { LoginProps } from '../components/forms/LoginForm';
 import { useMutation } from 'react-query';
-import { login as loginQuery } from '../services/ApiService';
 import { AxiosResponse } from 'axios';
 import { AuthContext, AuthContextType } from '../provider/AuthProvider';
 import { NavLink } from 'react-router-dom';
+import { register } from '../services/ApiService';
+import RegistrationForm, { RegistrationProps } from '../components/forms/RegistrationForm';
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const { login } = useContext(AuthContext) as AuthContextType;
 
-  const handleLogin = (data: LoginProps) => {
+  const handleRegistration = (data: RegistrationProps) => {
     setErrorMessage('');
     mutation.mutate({ ...data });
   };
 
-  const mutation = useMutation(loginQuery, {
+  const mutation = useMutation(register, {
     onSuccess: (response: AxiosResponse) => {
       login(response.data);
     },
@@ -37,19 +37,19 @@ const LoginPage = () => {
               alt="Your Company"
             />
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-              Sign in to your account
+              Create a new account
             </h2>
           </div>
           {isLoading ? (
             <div>Loading...</div>
           ) : (
-            <LoginForm onSubmit={handleLogin} errorMessage={errorMessage} />
+            <RegistrationForm onSubmit={handleRegistration} errorMessage={errorMessage} />
           )}
 
           <div className="flex items-center justify-between">
             <div className="text-sm">
-              <NavLink className="font-medium text-indigo-600 hover:text-indigo-500" to="/register">
-                Register new Account
+              <NavLink className="font-medium text-indigo-600 hover:text-indigo-500" to="/login">
+                Sign In
               </NavLink>
             </div>
 
@@ -67,4 +67,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

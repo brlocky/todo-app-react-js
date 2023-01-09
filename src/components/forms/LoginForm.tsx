@@ -76,14 +76,6 @@ const LoginForm = (props: LoginFormProps) => {
               Remember me
             </label>
           </div>
-
-          <div className="text-sm">
-            <NavLink
-              className="font-medium text-indigo-600 hover:text-indigo-500"
-              to="/forgot-password">
-              Forgot your password?
-            </NavLink>
-          </div>
         </div>
 
         <div>

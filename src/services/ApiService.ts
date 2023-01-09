@@ -1,17 +1,16 @@
 import { axiosInstance } from "./axios";
 
-// TODO add .env
-export interface RegisterDto {
-  email: string;
-  username: string;
-  password: string;
-  confirmPassword: string;
-}
-
 export interface LoginDto {
   email: string;
   password: string;
 }
+
+export interface RegisterDto {
+  username: string;
+  email: string;
+  password: string;
+}
+
 
 export function register(data: RegisterDto) {
   return axiosInstance.post(`auth/register/`, data);
