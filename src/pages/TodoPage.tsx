@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
-import { Todo } from '../types/todo';
+import { TodoDto } from '../types/todo';
 import TodoListItem from '../components/common/list-items/TodoListItem';
 import { List } from '../components/common/List';
 import { AxiosResponse } from 'axios';
@@ -8,7 +8,7 @@ import { createTodo } from '../services/api-service';
 import Card from '../components/common/Card';
 
 const TodoPage = () => {
-  const { data, error, isFetching, refetch } = useQuery<Array<Todo>, Error>(`/todo`, { retry: 0 });
+  const { data, error, isFetching, refetch } = useQuery<Array<TodoDto>, Error>(`/todo`, { retry: 0 });
   const [message, setMessage] = useState('');
 
   const mutation = useMutation(createTodo, {
@@ -39,7 +39,7 @@ const TodoPage = () => {
     setMessage(e.target.value);
   };
 
-  const renderItem = (item: Todo) => {
+  const renderItem = (item: TodoDto) => {
     return <TodoListItem item={item} />;
   };
 
@@ -48,7 +48,7 @@ const TodoPage = () => {
     <>
       <Card title="Todo List">
         <>
-          <List<Todo> items={data || []} renderItem={renderItem}></List>
+          <List<TodoDto> items={data || []} renderItem={renderItem}></List>
           <div>
             <input type="text" name="message" value={message} onChange={messageChanged} />
             <input type="button" value="Submit" onClick={submitForm} />
