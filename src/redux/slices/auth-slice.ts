@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store/store';
-import { TokenDto } from '../../types/Auth';
+import { TokenDto } from '../../types/auth';
 import { TokenServiceInstance } from '../../services/TokenService';
 
 // Define a type for the slice state

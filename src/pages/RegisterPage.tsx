@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
-import { useMutation } from 'react-query';
 import { AxiosResponse } from 'axios';
+import React, { useState } from 'react';
+import { useMutation } from 'react-query';
 import { NavLink } from 'react-router-dom';
-import { register } from '../services/ApiService';
 import RegistrationForm, { RegistrationProps } from '../components/forms/RegistrationForm';
 import { setCredentials } from '../redux/slices/auth-slice';
 import { useAppDispatch } from '../redux/store/hook';
+import { register } from '../services/api-service';
 
 const RegisterPage = () => {
   const [errorMessage, setErrorMessage] = useState('');

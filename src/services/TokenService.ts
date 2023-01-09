@@ -1,4 +1,4 @@
-import { TokenDto } from "../types/Auth";
+import { TokenDto } from "../types/auth";
 
 const TOKEN_KEY = 'token';
 

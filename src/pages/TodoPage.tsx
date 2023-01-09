@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
-import { Todo } from '../types/Todo';
+import { Todo } from '../types/todo';
 import TodoListItem from '../components/common/list-items/TodoListItem';
 import { List } from '../components/common/List';
 import { AxiosResponse } from 'axios';
-import { createTodo } from '../services/ApiService';
+import { createTodo } from '../services/api-service';
 import Card from '../components/common/Card';
 
 const TodoPage = () => {

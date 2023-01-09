@@ -4,7 +4,7 @@ import { useMutation } from 'react-query';
 import { NavLink } from 'react-router-dom';
 import LoginForm, { LoginProps } from '../components/forms/LoginForm';
 import { setCredentials } from '../redux/slices/auth-slice';
-import { login as loginQuery } from '../services/ApiService';
+import { login as loginQuery } from '../services/api-service';
 import { useAppDispatch } from '../redux/store/hook';
 
 const LoginPage = () => {

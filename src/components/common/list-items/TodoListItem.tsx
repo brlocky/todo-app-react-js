@@ -1,5 +1,5 @@
 import React from 'react';
-import { Todo } from '../../../types/Todo';
+import { Todo } from '../../../types/todo';
 
 const TodoListItem: React.FC<{ item: Todo | null }> = ({ item }) => {
   if (!item) {
