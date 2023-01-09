@@ -1,23 +1,24 @@
 import React, { useContext, useState } from 'react';
 import { useMutation } from 'react-query';
 import { AxiosResponse } from 'axios';
-import { AuthContext, AuthContextType } from '../provider/AuthProvider';
 import { NavLink } from 'react-router-dom';
 import { register } from '../services/ApiService';
 import RegistrationForm, { RegistrationProps } from '../components/forms/RegistrationForm';
+import { setCredentials } from '../redux/slices/auth-slice';
+import { useAppDispatch } from '../redux/store/hook';
 
 const RegisterPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
-  const { login } = useContext(AuthContext) as AuthContextType;
 
   const handleRegistration = (data: RegistrationProps) => {
     setErrorMessage('');
     mutation.mutate({ ...data });
   };
+  const dispatch = useAppDispatch();
 
   const mutation = useMutation(register, {
     onSuccess: (response: AxiosResponse) => {
-      login(response.data);
+      dispatch(setCredentials(response.data));
     },
     onError: ({ response }) => {
       setErrorMessage(response.data.error);

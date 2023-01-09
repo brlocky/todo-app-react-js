@@ -1,10 +1,11 @@
 import React from 'react';
-import { useAuth } from '../../provider/AuthProvider';
 import { NavLink, Navigate, useOutlet } from 'react-router-dom';
 
-import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Fragment } from 'react';
+import { isAuth } from '../../redux/slices/auth-slice';
+import { useAppSelector } from '../../redux/store/hook';
 import { classNames } from '../../utils/helpers';
 
 const navigation = [
@@ -14,10 +15,9 @@ const navigation = [
 
 
 const ProtectedLayout = () => {
-  const { isAuth } = useAuth();
   const outlet = useOutlet();
 
-  if (!isAuth()) {
+  if (!useAppSelector(isAuth)) {
     return <Navigate to="/login" />;
   }
 

@@ -1,23 +1,23 @@
-import React, { useContext, useState } from 'react';
-import LoginForm, { LoginProps } from '../components/forms/LoginForm';
-import { useMutation } from 'react-query';
-import { login as loginQuery } from '../services/ApiService';
 import { AxiosResponse } from 'axios';
-import { AuthContext, AuthContextType } from '../provider/AuthProvider';
+import React, { useState } from 'react';
+import { useMutation } from 'react-query';
 import { NavLink } from 'react-router-dom';
+import LoginForm, { LoginProps } from '../components/forms/LoginForm';
+import { setCredentials } from '../redux/slices/auth-slice';
+import { login as loginQuery } from '../services/ApiService';
+import { useAppDispatch } from '../redux/store/hook';
 
 const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
-  const { login } = useContext(AuthContext) as AuthContextType;
 
   const handleLogin = (data: LoginProps) => {
     setErrorMessage('');
     mutation.mutate({ ...data });
   };
-
+  const dispatch = useAppDispatch();
   const mutation = useMutation(loginQuery, {
     onSuccess: (response: AxiosResponse) => {
-      login(response.data);
+      dispatch(setCredentials(response.data));
     },
     onError: ({ response }) => {
       setErrorMessage(response.data.error);

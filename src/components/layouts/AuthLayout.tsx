@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { useAuth } from '../../provider/AuthProvider';
 import { Navigate, useOutlet } from 'react-router-dom';
+import { isAuth } from '../../redux/slices/auth-slice';
+import { useAppSelector } from '../../redux/store/hook';
 
 const AuthLayout = () => {
-  const { isAuth } = useAuth();
   const outlet = useOutlet();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const AuthLayout = () => {
     };
   }, []);
 
-  if (isAuth()) {
+  if (useAppSelector(isAuth)) {
     return <Navigate to="/" />;
   }
 

@@ -1,12 +1,16 @@
+import { TokenDto } from "../types/Auth";
+
 const TOKEN_KEY = 'token';
 
-export interface TokenDto {
-  accessToken: string;
-  refreshToken: string;
+
+export interface ITokenService {
+  getToken(): TokenDto | null;
+  setToken(token: TokenDto): void;
+  deleteToken(): void;
 }
 
-export class TokenService {
-  private static instance: TokenService;
+class TokenService {
+  private static instance: ITokenService;
 
   static getInstance() {
     if (!TokenService.instance) {

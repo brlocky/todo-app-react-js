@@ -1,12 +1,12 @@
-import React, { useContext, useEffect } from 'react';
-import { AuthContext, AuthContextType } from '../provider/AuthProvider';
+import React, { useEffect } from 'react';
+import { deleteCredentials } from '../redux/slices/auth-slice';
+import { useAppDispatch } from '../redux/store/hook';
 
 const LogoutPage = () => {
-  const { logout } = useContext(AuthContext) as AuthContextType;
-
+  const dispatch = useAppDispatch();
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
-    logout();
+    dispatch(deleteCredentials());
   });
   
   return <div />;
